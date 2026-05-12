@@ -9,16 +9,16 @@ brew "nvm"
 brew "python@3.12"
 brew "openjdk"
 brew "postgresql@18"
-brew "fzf"                   # fuzzy finder (Ctrl+R, Ctrl+T, Alt+C + base do fzf-tab)
+brew "fzf"                   # fuzzy finder (Ctrl+R, Ctrl+T, Alt+C + base for fzf-tab)
 
 # === Browsers ===
 cask "google-chrome"
 cask "arc"
 
-# === Comunicação ===
+# === Communication ===
 cask "discord"
 
-# === Produtividade ===
+# === Productivity ===
 cask "notion"
 cask "obsidian"
 cask "enpass"
@@ -26,26 +26,26 @@ cask "spotify"
 cask "vlc"
 cask "obs"
 
-# === Rede / Acesso remoto ===
+# === Network / Remote access ===
 cask "microsoft-remote-desktop"
 cask "parsec"
 cask "anydesk"
 cask "tailscale"
 
-# === Dev — Editores/IDEs ===
+# === Dev — Editors/IDEs ===
 cask "visual-studio-code"
 cask "sublime-text"
 cask "intellij-idea"
 cask "pycharm"
 cask "rider"
 
-# === Dev — Ferramentas ===
+# === Dev — Tools ===
 cask "postman"
 cask "mongodb-compass"
 cask "dbeaver-community"
 cask "orbstack"
 
-# === IA ===
+# === AI ===
 cask "claude"
 cask "claude-code"
 cask "codex"

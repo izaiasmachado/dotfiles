@@ -11,12 +11,12 @@ defaults write com.apple.finder ShowStatusBar -bool true
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 
-# Teclado: key repeat rápido
+# Keyboard: fast key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
-# Evitar .DS_Store em volumes externos
+# Avoid .DS_Store on external volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 

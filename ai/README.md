@@ -1,8 +1,8 @@
 # AI
 
-Placeholder. Configurações específicas de ferramentas de IA (prompts, agents, skills, scripts) entram aqui em fase futura.
+Placeholder. Tool-specific AI configs (prompts, agents, skills, scripts) will land here in a future phase.
 
-CLIs e desktop apps são instalados pelo `Brewfile` na raiz:
+CLIs and desktop apps are installed by the root `Brewfile`:
 - `claude` (desktop)
 - `claude-code` (CLI)
 - `codex` (CLI)
