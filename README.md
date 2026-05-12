@@ -19,8 +19,9 @@ make all
 
 | Alvo | O que faz |
 |------|-----------|
-| `make all` | Roda tudo: `brew` + `link` + `macos` + `iterm2` |
+| `make all` | Roda tudo: `brew` + `zsh` + `link` + `macos` + `iterm2` |
 | `make brew` | Instala Homebrew (se necessário) e roda `brew bundle` com o `Brewfile` |
+| `make zsh` | Instala oh-my-zsh e os plugins customizados (`fzf-tab`, `zsh-autosuggestions`, `zsh-syntax-highlighting`) |
 | `make link` | Cria symlinks de `.zshrc` e `.gitignore_global` em `~`, e configura `git core.excludesfile` |
 | `make macos` | Aplica `defaults write` para Finder, Dock e teclado |
 | `make iterm2` | Aponta o iTerm2 para ler prefs deste repo (`iterm2/`) |

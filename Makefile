@@ -1,10 +1,17 @@
-.PHONY: all brew link macos iterm2
+.PHONY: all brew zsh link macos iterm2
 
-all: brew link macos iterm2
+all: brew zsh link macos iterm2
 
 brew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	brew bundle --file=./Brewfile
+
+zsh:
+	@[ -d $$HOME/.oh-my-zsh ] || sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+	@mkdir -p $$HOME/.oh-my-zsh/custom/plugins
+	@[ -d $$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ] || git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	@[ -d $$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ] || git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting $$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	@[ -d $$HOME/.oh-my-zsh/custom/plugins/fzf-tab ] || git clone --depth=1 https://github.com/Aloxaf/fzf-tab $$HOME/.oh-my-zsh/custom/plugins/fzf-tab
 
 link:
 	ln -sfn $(PWD)/zsh/.zshrc $$HOME/.zshrc

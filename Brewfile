@@ -9,6 +9,7 @@ brew "nvm"
 brew "python@3.12"
 brew "openjdk"
 brew "postgresql@18"
+brew "fzf"                   # fuzzy finder (Ctrl+R, Ctrl+T, Alt+C + base do fzf-tab)
 
 # === Browsers ===
 cask "google-chrome"

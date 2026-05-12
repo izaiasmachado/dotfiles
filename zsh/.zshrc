@@ -1,7 +1,8 @@
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
-plugins=(nvm)
+# zsh-syntax-highlighting must come last in the plugins list
+plugins=(nvm fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # --- PATH ---
@@ -25,6 +26,10 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 20 2>/dev/null)
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# --- fzf (Ctrl+R history, Ctrl+T files, Alt+C cd) ---
+[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ] && source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ] && source /opt/homebrew/opt/fzf/shell/completion.zsh
 
 # --- Docker ---
 export DOCKER_HOST="unix://$HOME/.docker/run/docker.sock"
