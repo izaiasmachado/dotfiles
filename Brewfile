@@ -33,6 +33,9 @@ cask "parsec"
 cask "anydesk"
 cask "tailscale"
 
+# === Terminal ===
+cask "iterm2"
+
 # === Dev — Editors/IDEs ===
 cask "visual-studio-code"
 cask "sublime-text"
@@ -51,4 +54,4 @@ cask "testcontainers-desktop"
 cask "claude"
 cask "claude-code"
 cask "codex"
-cask "codeburn"
+brew "codeburn"
