@@ -11,6 +11,8 @@ brew "python@3.12"
 brew "openjdk"
 brew "postgresql@18"
 brew "fzf"                   # fuzzy finder (Ctrl+R, Ctrl+T, Alt+C + base for fzf-tab)
+brew "gh"                    # GitHub CLI
+brew "glab"                  # GitLab CLI
 
 # === Browsers ===
 cask "google-chrome"
