@@ -17,8 +17,12 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Accessibility: disable Mouse Keys and its 5-press toggle shortcut
-defaults write com.apple.universalaccess mouseDriver -bool false
-defaults write com.apple.universalaccess mouseDriverShortcut -bool false
+# Requires Full Disk Access for the calling terminal (System Settings → Privacy & Security → Full Disk Access).
+# Skipped with a warning when FDA is not granted, so a fresh-machine `make` doesn't abort.
+if ! defaults write com.apple.universalaccess mouseDriver -bool false 2>/dev/null \
+   || ! defaults write com.apple.universalaccess mouseDriverShortcut -bool false 2>/dev/null; then
+  echo "warning: skipping com.apple.universalaccess tweaks — grant Full Disk Access to your terminal and rerun 'make macos'." >&2
+fi
 
 # Screenshots: save to ~/Screenshots
 mkdir -p "$HOME/Screenshots"
