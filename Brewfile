@@ -1,5 +1,6 @@
 # === Taps ===
 tap "getagentseal/codeburn"
+tap "atomicjar/tap"
 
 # === CLI ===
 brew "git"
@@ -44,6 +45,7 @@ cask "postman"
 cask "mongodb-compass"
 cask "dbeaver-community"
 cask "orbstack"
+cask "testcontainers-desktop"
 
 # === AI ===
 cask "claude"
