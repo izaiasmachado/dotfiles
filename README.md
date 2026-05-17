@@ -25,7 +25,7 @@ make all
 | `make link` | Symlinks `.zshrc` and `.gitignore_global` into `~`, and sets `git core.excludesfile` |
 | `make macos` | Applies `defaults write` for Finder, Dock, and keyboard |
 | `make iterm2` | Points iTerm2 at this repo's prefs folder (`iterm2/`) |
-| `make skills` | Symlinks every folder under `skills/` into both `~/.codex/skills/` and `~/.claude/skills/` |
+| `make skills` | Copies every folder under `skills/` into both `~/.codex/skills/` and `~/.claude/skills/` (via `rsync -a --delete`; repo is the source of truth) |
 
 ## Docs
 
@@ -46,7 +46,7 @@ make all
 ├── zsh/.zshrc             # shell config
 ├── git/.gitignore_global  # global gitignore (includes AI tooling folders)
 ├── iterm2/                # iTerm2 plist (load preferences from custom folder)
-├── skills/                # Codex + Claude Code skills (symlinked into ~/.codex/skills/ and ~/.claude/skills/)
+├── skills/                # Codex + Claude Code skills (rsync'd into ~/.codex/skills/ and ~/.claude/skills/)
 ├── docs/                  # SSH and other setup guides
 ├── scripts/               # helper scripts (iterm2-sync, …)
 └── ai/                    # placeholder for AI configs (future phase)

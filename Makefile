@@ -29,6 +29,6 @@ skills:
 	@mkdir -p $$HOME/.codex/skills $$HOME/.claude/skills
 	@for s in skills/*/; do \
 		name=$$(basename $$s); \
-		ln -sfn $(PWD)/$$s $$HOME/.codex/skills/$$name; \
-		ln -sfn $(PWD)/$$s $$HOME/.claude/skills/$$name; \
+		rsync -a --delete "$$s" "$$HOME/.codex/skills/$$name/"; \
+		rsync -a --delete "$$s" "$$HOME/.claude/skills/$$name/"; \
 	done
