@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitLab MR Reviews (GLab)"
+  short_description: "Post, list, resolve, and reply to GitLab MR discussions via glab."
+  default_prompt: "Use this skill to interact with GitLab merge request review discussions: post line-anchored inline comments with the right diff position metadata, list discussions (optionally filtered to unresolved), mark discussions as resolved, and reply to existing threads."

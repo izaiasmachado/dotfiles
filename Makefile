@@ -1,6 +1,6 @@
-.PHONY: all brew zsh link macos iterm2 skills agents
+.PHONY: all brew zsh link macos iterm2 skills agents claude
 
-all: brew zsh link macos iterm2 skills agents
+all: brew zsh link macos iterm2 skills agents claude
 
 brew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -27,6 +27,7 @@ iterm2:
 
 skills:
 	@mkdir -p $$HOME/.codex/skills $$HOME/.claude/skills
+	@find skills -type f -path '*/scripts/*' -exec chmod +x {} +
 	@for s in skills/*/; do \
 		name=$$(basename $$s); \
 		rsync -a --delete "$$s" "$$HOME/.codex/skills/$$name/"; \
@@ -37,3 +38,7 @@ agents:
 	@mkdir -p "$$HOME/.codex" "$$HOME/.claude"
 	ln -sfn "$(PWD)/AGENTS.md" "$$HOME/.codex/AGENTS.md"
 	ln -sfn "$(PWD)/AGENTS.md" "$$HOME/.claude/CLAUDE.md"
+
+claude:
+	@mkdir -p $$HOME/.claude
+	ln -sfn $(PWD)/claude/settings.json $$HOME/.claude/settings.json
