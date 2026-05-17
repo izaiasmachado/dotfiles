@@ -1,111 +1,32 @@
-# AGENTS.md
+# AGENTS.md — Dotfiles repo
 
-Default guidance for AI coding agents (Codex, Claude Code, Copilot) working on Izaias's repositories.
+Project-specific guidance for AI agents working on this dotfiles repo.
 
-This file lives in the [dotfiles](https://github.com/izaiasmachado/dotfiles) repo and is installed as the global agent config via `make agents`:
+For Izaias's **global rules** (git identity, no AI attribution, Conventional Commits, branch naming, language, PR mermaid rule), see [ai/AGENTS.md](ai/AGENTS.md). That file is also installed at `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md` via `make agents`, so the global rules apply to every repo on the machine — this repo just adds the dotfiles-specific bits below.
 
-- `~/.codex/AGENTS.md` → this file (read by Codex CLI on every session)
-- `~/.claude/CLAUDE.md` → this file (read by Claude Code on every session)
+## Conventional-commits scopes for this repo
 
-The rules below apply to **every repo** Codex/Claude touch. A repo can override or extend them with its own `AGENTS.md` / `CLAUDE.md`.
+Use the touched area as the scope:
 
-## Git identity
-
-Always commit as:
-
-- **Name:** `Izaias Machado`
-- **Email:** `izaiasmachado.dev@gmail.com`
-
-Verify before committing:
-
-```bash
-git config user.name   # → Izaias Machado
-git config user.email  # → izaiasmachado.dev@gmail.com
-```
-
-## No AI attribution
-
-Do **not** add any AI signature to commits or pull requests:
-
-- `Co-Authored-By: Claude <noreply@anthropic.com>` — not allowed
-- `Co-Authored-By: Codex …` — not allowed
-- "Generated with Claude Code" / "Generated with Codex" footers — not allowed
-- Mentions of "AI", "Claude", "Codex", "Copilot" in commit messages or PR bodies — not allowed
-
-Commits and PRs should read as if written by Izaias.
-
-## Commit messages — Conventional Commits
-
-Format: `type(scope): short summary in the imperative`
-
-**Allowed types:** `feat`, `fix`, `chore`, `docs`, `refactor` (also `test`, `perf`, `style`, `build`, `ci` if relevant).
-
-**Scope** is the touched area of the codebase — use whatever module names are conventional in the current repo. From this dotfiles repo's history: `brew`, `zsh`, `macos`, `iterm2`, `skills`, `claude`, `git`. Drop the scope only when the change spans the whole repo.
-
-**Examples (from the dotfiles repo):**
-
-```
-feat(brew): add tmux and pearcleaner
-fix(macos): skip universalaccess tweaks when Full Disk Access is missing
-chore(skills): more descriptive display_name for glab skill
-docs(zsh): use Option (⌥) instead of Alt for macOS keybindings
-refactor(skills): copy via rsync instead of symlink
-chore(brew): rename tailscale cask to tailscale-app
-```
-
-**Rules:**
-
-- Imperative mood: `add`, not `added` / `adds`.
-- Lowercase after the colon.
-- No trailing period.
-- Keep the subject ≤ 72 characters.
-- Body (optional) explains the *why*, separated by a blank line.
-
-## Branch names
-
-`<type>/<short-kebab-summary>`
-
-Allowed prefixes:
-
-| Prefix | Use for |
+| Scope | What it covers |
 |---|---|
-| `feature/` | New functionality |
-| `fix/` | Bug fixes |
-| `chore/` | Maintenance, deps, renames, non-functional cleanup |
-| `docs/` | Documentation-only changes |
-| `refactor/` | Restructuring without behavior change |
+| `brew` | [Brewfile](Brewfile), Homebrew packages |
+| `zsh` | [zsh/.zshrc](zsh/.zshrc), oh-my-zsh plugins |
+| `macos` | [macos.sh](macos.sh) `defaults write` tweaks |
+| `iterm2` | [iterm2/](iterm2/) plist or the [iterm2-sync](skills/iterm2-sync/) script |
+| `skills` | anything under [skills/](skills/) |
+| `claude` | [claude/settings.json](claude/settings.json) or the `make claude` target |
+| `agents` | [ai/AGENTS.md](ai/AGENTS.md) or the `make agents` target |
+| `git` | [git/.gitignore_global](git/.gitignore_global) |
+| `docs` | guides under [docs/](docs/) |
+| `scripts` | helper scripts under [scripts/](scripts/) |
 
-Examples: `feature/add-glab-skill`, `fix/macos-permissions`, `docs/ssh-guides`, `chore/rename-tailscale-cask`, `refactor/skills-rsync`.
+Drop the scope when the change spans the whole repo.
 
-> Note: some older branches in `git log` use `feat/` (the conventional-commits short form). Going forward, **always use `feature/`** for new branches — do not mirror the older `feat/` prefix.
+## Setup targets
 
-## Language
+When wiring something new into machine setup, add a `make` target in [Makefile](Makefile) and list it in `make all`. See the [README's Makefile table](README.md#makefile-targets) for the existing targets and pick a pattern that matches (symlink for single files like `make link` / `make claude` / `make agents`; rsync for directories like `make skills`).
 
-Default to **English** for commits, branch names, and PR titles/descriptions.
+## Path quoting in Makefile recipes
 
-Switch to **Portuguese** only when the project's existing history is already in Portuguese (check `git log` — if commits and PRs are in PT, match it). Never mix languages within a single commit or PR.
-
-## Pull requests
-
-- Title follows the same Conventional Commits format as the squashed commit.
-- Description focuses on *why* and *what changed*, in the language used by the rest of the project.
-- No AI footer, no co-author trailer.
-- **Include a Mermaid diagram** in the PR description whenever the change introduces non-trivial control flow, state transitions, or interaction between multiple components. Use a fenced ```` ```mermaid ```` block and pick the diagram type that fits the behaviour:
-  - `flowchart` — branching logic, request paths, decision trees.
-  - `sequenceDiagram` — cross-component calls, async flows, API exchanges.
-  - `stateDiagram-v2` — state machines, lifecycle changes.
-  - `erDiagram` — new tables, schema changes, foreign-key relationships.
-  - `classDiagram` — non-trivial class/type hierarchies.
-
-  Skip the diagram for trivial changes (renames, single-line fixes, doc tweaks, dependency bumps). Example for a request path:
-
-  ````markdown
-  ```mermaid
-  flowchart LR
-      Client --> API[/POST /orders/]
-      API --> Validate{valid?}
-      Validate -- no --> Reject[400]
-      Validate -- yes --> DB[(orders)]
-      DB --> Queue[[publish order.created]]
-  ```
-  ````
+`$HOME` on this machine contains spaces (`/Volumes/SSD - Mac Mini M4 - Izaias/izaias-macmini`). When writing or editing make recipes, **always quote** `"$$HOME/..."` and `"$(PWD)/..."`. Unquoted paths split on spaces and fail with `mkdir: /Volumes/SSD: Permission denied` (or similar). Compare a correct target (`agents`, `claude`) with `link`/`skills` for the pattern.

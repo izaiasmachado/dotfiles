@@ -36,8 +36,8 @@ skills:
 
 agents:
 	@mkdir -p "$$HOME/.codex" "$$HOME/.claude"
-	ln -sfn "$(PWD)/AGENTS.md" "$$HOME/.codex/AGENTS.md"
-	ln -sfn "$(PWD)/AGENTS.md" "$$HOME/.claude/CLAUDE.md"
+	ln -sfn "$(PWD)/ai/AGENTS.md" "$$HOME/.codex/AGENTS.md"
+	ln -sfn "$(PWD)/ai/AGENTS.md" "$$HOME/.claude/CLAUDE.md"
 
 claude:
 	@mkdir -p "$$HOME/.claude"

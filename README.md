@@ -26,7 +26,7 @@ make all
 | `make macos` | Applies `defaults write` for Finder, Dock, and keyboard |
 | `make iterm2` | Points iTerm2 at this repo's prefs folder (`iterm2/`) |
 | `make skills` | `chmod +x` every file under `skills/*/scripts/` then copies every folder under `skills/` into both `~/.codex/skills/` and `~/.claude/skills/` (via `rsync -a --delete`; repo is the source of truth) |
-| `make agents` | Symlinks [AGENTS.md](AGENTS.md) into `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md` so Codex and Claude Code load the same global guidance (git identity, no AI attribution, Conventional Commits, branch naming, language rules) |
+| `make agents` | Symlinks [ai/AGENTS.md](ai/AGENTS.md) into `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md` so Codex and Claude Code load the same global guidance everywhere (git identity, no AI attribution, Conventional Commits, branch naming, language, PR conventions) |
 | `make claude` | Symlinks `claude/settings.json` into `~/.claude/settings.json` |
 
 ## Docs
@@ -46,8 +46,8 @@ make all
 ├── Brewfile               # Homebrew packages (CLI + casks)
 ├── Makefile               # setup targets
 ├── macos.sh               # macOS defaults
-├── AGENTS.md              # global guidance for AI agents (symlinked into ~/.codex and ~/.claude by `make agents`)
-├── CLAUDE.md              # symlink → AGENTS.md (so Claude Code picks it up at the repo level too)
+├── AGENTS.md              # repo-specific guidance for AI agents (dotfiles scopes, Makefile pointers, path quoting)
+├── CLAUDE.md              # symlink → AGENTS.md (Claude Code project-level)
 ├── zsh/.zshrc             # shell config
 ├── git/.gitignore_global  # global gitignore (includes AI tooling folders)
 ├── iterm2/                # iTerm2 plist (load preferences from custom folder)
@@ -55,5 +55,5 @@ make all
 ├── claude/                # Claude Code user settings (~/.claude/settings.json)
 ├── docs/                  # SSH and other setup guides
 ├── scripts/               # helper scripts (iterm2-sync, …)
-└── ai/                    # placeholder for AI configs (future phase)
+└── ai/                    # global AGENTS.md (symlinked into ~/.codex/ and ~/.claude/ by `make agents`)
 ```
