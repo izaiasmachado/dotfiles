@@ -13,6 +13,7 @@ brew "postgresql@18"
 brew "fzf"                   # fuzzy finder (Ctrl+R, Ctrl+T, Alt+C + base for fzf-tab)
 brew "gh"                    # GitHub CLI
 brew "glab"                  # GitLab CLI
+brew "tmux"                  # terminal multiplexer (detach/reattach SSH sessions)
 
 # === Browsers ===
 cask "google-chrome"
@@ -28,6 +29,7 @@ cask "enpass"
 cask "spotify"
 cask "vlc"
 cask "obs"
+cask "pearcleaner"           # uninstaller — removes app leftovers
 
 # === Network / Remote access ===
 cask "microsoft-remote-desktop"
