@@ -1,0 +1,90 @@
+# Zsh autocomplete cheat-sheet
+
+This dotfiles' [`.zshrc`](../zsh/.zshrc) loads four plugins that together make the shell much more helpful. This is a quick reference for what each does and how to drive it.
+
+## macOS setup (required for `⌥` bindings)
+
+By default, macOS terminals treat the Option key as the system "special characters" key — pressing `⌥F` types `ƒ`, `⌥C` types `ç`, and the shell never sees the binding. On PT-BR / international keyboards this is especially visible because Option is wired up to lots of accents.
+
+**If you ran `make iterm2`, this is already configured for you** — the committed iTerm2 plist sets Left Option to `Esc+` on the Default profile. After running the make target, quit iTerm2 fully (`Cmd+Q`) and relaunch to pick it up.
+
+For other terminals:
+
+- **Apple Terminal:** Settings → Profiles → Keyboard → check **Use Option as Meta key**
+- **Ghostty / Alacritty / WezTerm:** default to Option-as-Meta — nothing to configure
+- **iTerm2 without these dotfiles:** Settings → Profiles → **Keys** (tab) → **Left Option key → `Esc+`**
+
+**Universal fallback (no config needed):** press `Esc`, release, then press the letter. `Esc` then `C` is equivalent to `⌥C`. `Esc` then `F` is equivalent to `⌥F`. Works on any terminal, any layout.
+
+## The stack
+
+| Plugin | Purpose |
+|--------|---------|
+| oh-my-zsh built-in | Tab completion for commands, flags, paths |
+| **fzf-tab** | Replaces Tab with an `fzf` fuzzy picker over completions |
+| **zsh-autosuggestions** | Faint gray inline suggestion of a past command |
+| **zsh-syntax-highlighting** | Colors commands as you type (green = exists on PATH, red = does not) |
+| **fzf** keybindings | `Ctrl-R` history, `Ctrl-T` files, `⌥C` (Option-C) cd |
+
+## Keybindings
+
+| Key | What it does |
+|-----|--------------|
+| `Tab` | Open fzf picker over completions (fzf-tab) |
+| `Tab`, then type | Fuzzy-filter the picker |
+| `Enter` | Accept the highlighted completion |
+| `Esc` | Cancel the picker |
+| `→` or `End` | Accept the whole gray inline suggestion |
+| `Ctrl-E` | Same — accept inline suggestion to end of line |
+| `⌥F` (Option-F) | Accept inline suggestion one word at a time |
+| `Ctrl-R` | Fuzzy-search shell history |
+| `Ctrl-T` | Fuzzy-search files under the current directory |
+| `⌥C` (Option-C) | Fuzzy-pick a subdirectory and `cd` into it |
+
+## How each plugin behaves
+
+### fzf-tab (the big upgrade)
+
+When you start typing a command and hit `Tab`, fzf-tab kicks in:
+
+1. Collects the completions zsh would normally offer.
+2. Opens an `fzf` picker so you can fuzzy-filter them.
+3. `Enter` picks one, `Esc` cancels.
+
+Instead of cycling through 50 options, type a few letters and pick.
+
+### zsh-autosuggestions
+
+As you type, a faint gray suggestion appears showing a past command that starts the same way:
+
+- `→` or `End` — accept the whole suggestion.
+- `⌥F` (Option-F) — accept just the next word. Note: `Ctrl-→` does **not** work on macOS — the system grabs it for "move to next Space" (Mission Control).
+- Keep typing to ignore it (it updates as you type).
+
+This is **different from Tab completion**. Autosuggestions come from your history. Tab completion comes from what zsh knows about commands and files.
+
+### zsh-syntax-highlighting
+
+Cosmetic. Colors commands green if they exist on your PATH, red if they don't. No keybindings.
+
+> Must be the **last** plugin in the `plugins=(...)` array — it hooks into the rendering pipeline last so other plugins don't override its colors.
+
+### fzf keybindings (`Ctrl-R` / `Ctrl-T` / `⌥C`)
+
+These are global, not tied to any specific command:
+
+- `Ctrl-R` — search every command you've ever run. Type to filter, `Enter` to fill it in, `Enter` again to run.
+- `Ctrl-T` — search files under the current directory. Useful inside any command: type `vim `, hit `Ctrl-T`, pick a file.
+- `⌥C` (Option-C) — same idea but for `cd`. Picks a subdirectory and changes into it. The fzf docs call this binding `Alt-C` — on Mac, `Alt` = `Option`.
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---------|-----|
+| `Tab` cycles options instead of opening fzf picker | fzf-tab not loaded. Check `plugins=(... fzf-tab ...)` in `~/.zshrc`, start a new shell. If still missing, re-run `make zsh` to clone the plugin into `~/.oh-my-zsh/custom/plugins/fzf-tab/`. |
+| Gray suggestions don't appear | Plugin not loaded, or terminal theme makes them invisible. Try `export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'` in `~/.zshrc`. |
+| `→` doesn't accept inline suggestion | Some terminals send a different escape for `→`. Use `End` or `Ctrl-E` instead. |
+| `Ctrl-R` doesn't open fzf picker | fzf keybindings not sourced. `~/.zshrc` must include `source /opt/homebrew/opt/fzf/shell/key-bindings.zsh`. Confirm fzf is installed (`brew list fzf`). |
+| `⌥C` types `ç` (or any `⌥`-binding types an accent) | Option not set as Meta — see [macOS setup](#macos-setup-required-for--bindings) above. If you ran `make iterm2`, quit iTerm2 fully and relaunch. |
+| Syntax highlighting colors don't update | zsh-syntax-highlighting isn't last in the `plugins=(...)` array. Move it to the end. |
+| Changes to `~/.zshrc` don't take effect | Reload: `source ~/.zshrc`, or open a new shell. |

@@ -26,8 +26,9 @@ iterm2:
 	defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 
 skills:
-	@mkdir -p $$HOME/.codex/skills
+	@mkdir -p $$HOME/.codex/skills $$HOME/.claude/skills
 	@for s in skills/*/; do \
 		name=$$(basename $$s); \
 		ln -sfn $(PWD)/$$s $$HOME/.codex/skills/$$name; \
+		ln -sfn $(PWD)/$$s $$HOME/.claude/skills/$$name; \
 	done
