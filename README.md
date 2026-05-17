@@ -19,13 +19,14 @@ make all
 
 | Target | What it does |
 |--------|--------------|
-| `make all` | Runs everything: `brew` + `zsh` + `link` + `macos` + `iterm2` + `skills` |
+| `make all` | Runs everything: `brew` + `zsh` + `link` + `macos` + `iterm2` + `skills` + `claude` |
 | `make brew` | Installs Homebrew (if needed) and runs `brew bundle` against `Brewfile` |
 | `make zsh` | Installs oh-my-zsh and the custom plugins (`fzf-tab`, `zsh-autosuggestions`, `zsh-syntax-highlighting`) |
 | `make link` | Symlinks `.zshrc` and `.gitignore_global` into `~`, and sets `git core.excludesfile` |
 | `make macos` | Applies `defaults write` for Finder, Dock, and keyboard |
 | `make iterm2` | Points iTerm2 at this repo's prefs folder (`iterm2/`) |
-| `make skills` | Copies every folder under `skills/` into both `~/.codex/skills/` and `~/.claude/skills/` (via `rsync -a --delete`; repo is the source of truth) |
+| `make skills` | `chmod +x` every file under `skills/*/scripts/` then copies every folder under `skills/` into both `~/.codex/skills/` and `~/.claude/skills/` (via `rsync -a --delete`; repo is the source of truth) |
+| `make claude` | Symlinks `claude/settings.json` into `~/.claude/settings.json` |
 
 ## Docs
 
@@ -48,6 +49,7 @@ make all
 ├── git/.gitignore_global  # global gitignore (includes AI tooling folders)
 ├── iterm2/                # iTerm2 plist (load preferences from custom folder)
 ├── skills/                # Codex + Claude Code skills + their supporting scripts (rsync'd into ~/.codex/skills/ and ~/.claude/skills/)
+├── claude/                # Claude Code user settings (~/.claude/settings.json)
 ├── docs/                  # SSH and other setup guides
 └── ai/                    # placeholder for AI configs (future phase)
 ```

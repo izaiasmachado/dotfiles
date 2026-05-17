@@ -4,6 +4,8 @@ Skills are small, self-contained packages of instructions (`SKILL.md`) and optio
 
 `make skills` rsyncs every directory under `skills/` into both `~/.codex/skills/` and `~/.claude/skills/`, so the same skill is available in both runtimes. The repo is the single source of truth — edits land here, then propagate to the runtimes on the next `make skills`.
 
+Before the rsync, `make skills` also `chmod +x` everything under `skills/*/scripts/`. You don't need to remember to mark new scripts executable — just drop a `.sh`/`.py` into a skill's `scripts/` folder and the next `make skills` makes it runnable both locally and in the runtime copies.
+
 ## Catalogue
 
 ### Own skills
@@ -12,8 +14,9 @@ Skills authored in this repo for our specific workflow.
 
 | Skill | What it does |
 |---|---|
-| [iterm2-sync](iterm2-sync/SKILL.md) | Walks the agent through capturing iTerm2 UI tweaks (colors, fonts, keymaps, hotkeys, dock behavior) back into the committed plist via `scripts/iterm2-sync.py`. Refuses to run while iTerm2 is alive and filters runtime noise (window positions, telemetry) so commits stay clean. |
-| [glab-inline-mr-comments](glab-inline-mr-comments/SKILL.md) | Posts line-anchored review comments on a GitLab MR through `glab`. Wraps `glab api` to resolve MR diff SHAs and build the `position` metadata GitLab requires for inline comments to attach to a specific line. Creates as `draft_note` then bulk-publishes. |
+| [iterm2-sync](iterm2-sync/SKILL.md) | Walks the agent through capturing iTerm2 UI tweaks (colors, fonts, keymaps, hotkeys, dock behavior) back into the committed plist via `skills/iterm2-sync/scripts/iterm2-sync.py`. Refuses to run while iTerm2 is alive and filters runtime noise (window positions, telemetry) so commits stay clean. |
+| [gitlab-mr-reviews](gitlab-mr-reviews/SKILL.md) | End-to-end toolkit for GitLab MR review discussions via `glab`: post line-anchored inline comments with diff `position` metadata, list/filter discussions (optionally `--unresolved`), resolve discussions, reply to threads. |
+| [github-pr-reviews](github-pr-reviews/SKILL.md) | End-to-end toolkit for GitHub PR review threads via `gh`: post line-anchored inline comments tied to the PR head commit, list/filter review threads (GraphQL, optionally `--unresolved`), resolve threads, reply to comments. |
 
 ### Vendor-supported skills
 
@@ -63,13 +66,13 @@ For a full re-sync of every Superpowers-vendored skill, loop over the list above
 
 1. Copy the skill directory from upstream into `skills/<skill-name>/`.
 2. Verify `SKILL.md` has a sensible `name` and `description` YAML frontmatter (both Claude Code and Codex use this).
-3. Add a row in the **Vendor-supported skills** section above with a 1-line description.
+3. Add a row in the catalogue above (under a "Vendor-supported skills" section grouped by upstream source) with a 1-line description.
 4. Commit. Next `make skills` installs it on every Mac.
 
 ### Removing a vendored skill
 
 1. `git rm -r skills/<skill-name>/`
-2. Remove its row from the catalogue above.
+2. Remove its row from the catalogue.
 3. Next `make skills` won't reinstall it. **However**, runtimes that previously had it installed still have the copy in `~/.codex/skills/` and `~/.claude/skills/` — `make skills` doesn't garbage-collect skills missing from the repo. Remove those manually if desired.
 
 ## Future considerations
@@ -79,13 +82,13 @@ For a full re-sync of every Superpowers-vendored skill, loop over the list above
 Today, two files carry skill metadata for the two runtimes:
 
 - `SKILL.md` frontmatter (`name`, `description`) — read by **both** Claude Code and Codex; this is what drives auto-triggering.
-- `agents/openai.yaml` — read **only by Codex** for cosmetic UI fields (`display_name`, `short_description`, `default_prompt`). Optional; we currently use it on `glab-inline-mr-comments`.
+- `agents/openai.yaml` — read **only by Codex** for cosmetic UI fields (`display_name`, `short_description`, `default_prompt`). Optional; we currently use it on `gitlab-mr-reviews` and `github-pr-reviews`.
 
 Claude Code has **no equivalent** of `agents/openai.yaml` — its skill listing uses the `name` and `description` from `SKILL.md` directly, no separate per-vendor metadata file.
 
 A future refactor could introduce a single `skill.yaml` per skill (slug, display name, descriptions, default prompt) and a build script that emits both `SKILL.md` frontmatter and `agents/openai.yaml`. **We deliberately didn't build this yet** because:
 
-1. **Volume is too small to justify it.** With ~2 own skills, the duplication is ~4 lines per skill. The build step would cost more than it saves.
+1. **Volume is too small to justify it.** Few own skills, ~4 lines of duplication each. The build step would cost more than it saves.
 2. **Vendored skills don't fit the model.** Skills from Superpowers and other upstream sources arrive with their own hand-authored `SKILL.md`. Forcing them through a generator means either rewriting upstream content (loses `rsync -a --delete` syncs) or making the generator skip vendored skills (loses the consistency that motivated it).
 3. **Generated files in git are a footgun.** Someone edits the generated `SKILL.md`, the next build wipes it, surprise.
 4. **No third runtime yet.** If Cursor, Gemini, or Continue land with their own per-skill metadata formats, the generator pays for itself. With just Claude + Codex, it doesn't.
