@@ -54,6 +54,5 @@ make all
 ├── skills/                # Codex + Claude Code skills (rsync'd into ~/.codex/skills/ and ~/.claude/skills/)
 ├── claude/                # Claude Code user settings (~/.claude/settings.json)
 ├── docs/                  # SSH and other setup guides
-├── scripts/               # helper scripts (iterm2-sync, …)
-└── ai/                    # placeholder for AI configs (future phase)
+└── scripts/               # helper scripts (iterm2-sync, …)
 ```
