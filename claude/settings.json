@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(glab *)",
+      "Bash(grep *)",
+      "Bash(cp /tmp/*)",
+      "Bash(cp -r /tmp/*)",
+      "Bash(cp * /tmp/*)",
+      "Bash(cp -r * /tmp/*)"
+    ]
+  }
+}
