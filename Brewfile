@@ -17,6 +17,7 @@ brew "tmux"                  # terminal multiplexer (detach/reattach SSH session
 
 # === Browsers ===
 cask "google-chrome"
+cask "firefox"
 cask "arc"
 
 # === Communication ===
