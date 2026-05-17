@@ -1,6 +1,6 @@
 ---
 name: iterm2-sync
-description: Use when the user has tweaked iTerm2 settings (profile colors, fonts, keymaps, hotkeys, dock behavior) and wants to capture those changes back into the committed plist in their dotfiles repo (~/dev/dotfiles/iterm2/com.googlecode.iterm2.plist). Runs scripts/iterm2-sync.py to deep-diff committed vs live plist, filter runtime noise (window positions, telemetry, NSWindow Frame*, SULastCheckTime), confirm the meaningful changes, and apply them in place — preserves binary plist format. Refuses to run while iTerm2 is alive.
+description: Use when the user has tweaked iTerm2 settings (profile colors, fonts, keymaps, hotkeys, dock behavior) and wants to capture those changes back into the committed plist in their dotfiles repo (~/dev/dotfiles/iterm2/com.googlecode.iterm2.plist). Runs skills/iterm2-sync/scripts/iterm2-sync.py to deep-diff committed vs live plist, filter runtime noise (window positions, telemetry, NSWindow Frame*, SULastCheckTime), confirm the meaningful changes, and apply them in place — preserves binary plist format. Refuses to run while iTerm2 is alive.
 ---
 
 # iterm2-sync
@@ -23,7 +23,7 @@ cd ~/dev/dotfiles                         # or wherever the dotfiles repo lives
 osascript -e 'quit app "iTerm"'
 
 # 2. Run the sync script.
-python3 scripts/iterm2-sync.py
+python3 skills/iterm2-sync/scripts/iterm2-sync.py
 ```
 
 The script:
@@ -53,8 +53,8 @@ git commit -m "feat(iterm2): <describe the user-visible change>"
 
 ## Where everything lives
 
-- Script: `~/dev/dotfiles/scripts/iterm2-sync.py`
+- Script: `~/dev/dotfiles/skills/iterm2-sync/scripts/iterm2-sync.py`
 - Full doc with manual fallback (raw `plistlib` commands): `~/dev/dotfiles/docs/iterm2-sync.md`
 - Live plist: `~/Library/Preferences/com.googlecode.iterm2.plist`
 - Committed plist: `~/dev/dotfiles/iterm2/com.googlecode.iterm2.plist`
-- Noise filter location (when you need to add more filtered keys): `NOISE_PATTERNS` at the top of `scripts/iterm2-sync.py`
+- Noise filter location (when you need to add more filtered keys): `NOISE_PATTERNS` at the top of `skills/iterm2-sync/scripts/iterm2-sync.py`
