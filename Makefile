@@ -1,5 +1,12 @@
 .PHONY: all brew zsh link macos iterm2 skills agents claude
 
+# NOTE: always quote "$$HOME" and "$(PWD)". This repo is cloned under a
+# path with spaces on at least one machine
+# (/Volumes/SSD - Mac Mini M4 - Izaias/izaias-macmini), so unquoted
+# references word-split into bogus args -- failing with permission
+# errors on the absolute prefix and silently creating fragment-named
+# directories ("-/", "Mac/", "Mini/", ...) at the repo root.
+
 all: brew zsh link macos iterm2 skills agents claude
 
 brew:
