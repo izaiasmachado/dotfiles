@@ -26,6 +26,14 @@ make all
 | `make macos` | Applies `defaults write` for Finder, Dock, and keyboard |
 | `make iterm2` | Points iTerm2 at this repo's prefs folder (`iterm2/`) |
 
+## Docs
+
+| Guide | What it covers |
+|-------|----------------|
+| [docs/ssh-keys.md](docs/ssh-keys.md) | Generate an SSH key on a new Mac, load it into the keychain, register with GitHub/GitLab |
+| [docs/ssh-remote-login.md](docs/ssh-remote-login.md) | Enable inbound SSH on a Mac, copy your key with `ssh-copy-id`, and harden it |
+| [docs/zsh-autocomplete.md](docs/zsh-autocomplete.md) | Cheat-sheet for fzf-tab, autosuggestions, and the fzf keybindings (`Ctrl-R`, `Ctrl-T`, `Alt-C`) |
+
 ## Layout
 
 ```
@@ -36,5 +44,6 @@ make all
 ├── zsh/.zshrc             # shell config
 ├── git/.gitignore_global  # global gitignore (includes AI tooling folders)
 ├── iterm2/                # iTerm2 plist (load preferences from custom folder)
+├── docs/                  # SSH and other setup guides
 └── ai/                    # placeholder for AI configs (future phase)
 ```
