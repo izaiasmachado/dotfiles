@@ -4,6 +4,8 @@ Skills are small, self-contained packages of instructions (`SKILL.md`) and optio
 
 `make skills` rsyncs every directory under `skills/` into both `~/.codex/skills/` and `~/.claude/skills/`, so the same skill is available in both runtimes. The repo is the single source of truth — edits land here, then propagate to the runtimes on the next `make skills`.
 
+Before the rsync, `make skills` also `chmod +x` everything under `skills/*/scripts/`. You don't need to remember to mark new scripts executable — just drop a `.sh`/`.py` into a skill's `scripts/` folder and the next `make skills` makes it runnable both locally and in the runtime copies.
+
 ## Catalogue
 
 ### Own skills
