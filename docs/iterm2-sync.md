@@ -12,7 +12,7 @@ The clean approach is to **only sync the keys you actually changed**.
 
 ## The script
 
-[`scripts/iterm2-sync.py`](../scripts/iterm2-sync.py) does the whole flow:
+[`skills/iterm2-sync/scripts/iterm2-sync.py`](../skills/iterm2-sync/scripts/iterm2-sync.py) does the whole flow:
 
 1. Reads the committed and live plists.
 2. Deep-diffs them, filtering out runtime-noise keys (`NSWindow Frame*`, `NoSync*`, `SULastCheckTime`, etc.).
@@ -27,7 +27,7 @@ The clean approach is to **only sync the keys you actually changed**.
 osascript -e 'quit app "iTerm"'      # or Cmd+Q from inside iTerm2
 
 # 3. Sync:
-python3 scripts/iterm2-sync.py
+python3 skills/iterm2-sync/scripts/iterm2-sync.py
 ```
 
 The script will refuse to run if iTerm2 is still up — UI changes live in memory until quit, so a sync now would miss them.
@@ -90,7 +90,7 @@ The textual diff (`diff` between two `plutil -p` outputs) is the truth — the b
 
 ## Adding new noisy keys to the filter
 
-If the script reports something as a "meaningful change" that's clearly runtime state (you'll know because it shows up every time you sync, regardless of what you did), add it to `NOISE_PATTERNS` at the top of [`scripts/iterm2-sync.py`](../scripts/iterm2-sync.py). The match is a substring against the dotted path.
+If the script reports something as a "meaningful change" that's clearly runtime state (you'll know because it shows up every time you sync, regardless of what you did), add it to `NOISE_PATTERNS` at the top of [`skills/iterm2-sync/scripts/iterm2-sync.py`](../skills/iterm2-sync/scripts/iterm2-sync.py). The match is a substring against the dotted path.
 
 ## Troubleshooting
 
