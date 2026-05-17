@@ -33,6 +33,7 @@ make all
 | [docs/ssh-keys.md](docs/ssh-keys.md) | Generate an SSH key on a new Mac, load it into the keychain, register with GitHub/GitLab |
 | [docs/ssh-remote-login.md](docs/ssh-remote-login.md) | Enable inbound SSH on a Mac, copy your key with `ssh-copy-id`, and harden it |
 | [docs/zsh-autocomplete.md](docs/zsh-autocomplete.md) | Cheat-sheet for fzf-tab, autosuggestions, and the fzf keybindings (`Ctrl-R`, `Ctrl-T`, `⌥C`) |
+| [docs/iterm2-sync.md](docs/iterm2-sync.md) | Sync iTerm2 UI changes back into the committed plist via [scripts/iterm2-sync.py](scripts/iterm2-sync.py), without runtime junk |
 
 ## Layout
 
@@ -45,5 +46,6 @@ make all
 ├── git/.gitignore_global  # global gitignore (includes AI tooling folders)
 ├── iterm2/                # iTerm2 plist (load preferences from custom folder)
 ├── docs/                  # SSH and other setup guides
+├── scripts/               # helper scripts (iterm2-sync, …)
 └── ai/                    # placeholder for AI configs (future phase)
 ```
