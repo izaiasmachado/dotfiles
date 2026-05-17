@@ -1,6 +1,6 @@
-.PHONY: all brew zsh link macos iterm2
+.PHONY: all brew zsh link macos iterm2 skills
 
-all: brew zsh link macos iterm2
+all: brew zsh link macos iterm2 skills
 
 brew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -24,3 +24,11 @@ macos:
 iterm2:
 	defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$(PWD)/iterm2"
 	defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+
+skills:
+	@mkdir -p $$HOME/.codex/skills $$HOME/.claude/skills
+	@for s in skills/*/; do \
+		name=$$(basename $$s); \
+		rsync -a --delete "$$s" "$$HOME/.codex/skills/$$name/"; \
+		rsync -a --delete "$$s" "$$HOME/.claude/skills/$$name/"; \
+	done
