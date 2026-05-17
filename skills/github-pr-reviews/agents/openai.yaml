@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub PR Reviews (gh)"
+  short_description: "Post, list, resolve, and reply to GitHub PR review threads via gh."
+  default_prompt: "Use this skill to interact with GitHub pull request review threads: post line-anchored inline comments tied to the PR head commit, list review threads (optionally filtered to unresolved via GraphQL), resolve threads, and reply to existing comments."

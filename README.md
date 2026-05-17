@@ -35,6 +35,7 @@ make all
 | [docs/ssh-remote-login.md](docs/ssh-remote-login.md) | Enable inbound SSH on a Mac, copy your key with `ssh-copy-id`, and harden it |
 | [docs/zsh-autocomplete.md](docs/zsh-autocomplete.md) | Cheat-sheet for fzf-tab, autosuggestions, and the fzf keybindings (`Ctrl-R`, `Ctrl-T`, `⌥C`) |
 | [docs/iterm2-sync.md](docs/iterm2-sync.md) | Sync iTerm2 UI changes back into the committed plist via [scripts/iterm2-sync.py](scripts/iterm2-sync.py), without runtime junk |
+| [skills/README.md](skills/README.md) | Catalogue of every skill in this repo + convention for vendoring upstream skills |
 
 ## Layout
 
