@@ -32,7 +32,7 @@ make all
 |-------|----------------|
 | [docs/ssh-keys.md](docs/ssh-keys.md) | Generate an SSH key on a new Mac, load it into the keychain, register with GitHub/GitLab |
 | [docs/ssh-remote-login.md](docs/ssh-remote-login.md) | Enable inbound SSH on a Mac, copy your key with `ssh-copy-id`, and harden it |
-| [docs/zsh-autocomplete.md](docs/zsh-autocomplete.md) | Cheat-sheet for fzf-tab, autosuggestions, and the fzf keybindings (`Ctrl-R`, `Ctrl-T`, `Alt-C`) |
+| [docs/zsh-autocomplete.md](docs/zsh-autocomplete.md) | Cheat-sheet for fzf-tab, autosuggestions, and the fzf keybindings (`Ctrl-R`, `Ctrl-T`, `⌥C`) |
 
 ## Layout
 

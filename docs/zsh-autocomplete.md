@@ -10,7 +10,7 @@ This dotfiles' [`.zshrc`](../zsh/.zshrc) loads four plugins that together make t
 | **fzf-tab** | Replaces Tab with an `fzf` fuzzy picker over completions |
 | **zsh-autosuggestions** | Faint gray inline suggestion of a past command |
 | **zsh-syntax-highlighting** | Colors commands as you type (green = exists on PATH, red = does not) |
-| **fzf** keybindings | `Ctrl-R` history, `Ctrl-T` files, `Alt-C` cd |
+| **fzf** keybindings | `Ctrl-R` history, `Ctrl-T` files, `⌥C` (Option-C) cd |
 
 ## Keybindings
 
@@ -25,7 +25,7 @@ This dotfiles' [`.zshrc`](../zsh/.zshrc) loads four plugins that together make t
 | `Ctrl-→` | Accept inline suggestion one word at a time |
 | `Ctrl-R` | Fuzzy-search shell history |
 | `Ctrl-T` | Fuzzy-search files under the current directory |
-| `Alt-C` | Fuzzy-pick a subdirectory and `cd` into it |
+| `⌥C` (Option-C) | Fuzzy-pick a subdirectory and `cd` into it |
 
 ## How each plugin behaves
 
@@ -55,13 +55,13 @@ Cosmetic. Colors commands green if they exist on your PATH, red if they don't. N
 
 > Must be the **last** plugin in the `plugins=(...)` array — it hooks into the rendering pipeline last so other plugins don't override its colors.
 
-### fzf keybindings (`Ctrl-R` / `Ctrl-T` / `Alt-C`)
+### fzf keybindings (`Ctrl-R` / `Ctrl-T` / `⌥C`)
 
 These are global, not tied to any specific command:
 
 - `Ctrl-R` — search every command you've ever run. Type to filter, `Enter` to fill it in, `Enter` again to run.
 - `Ctrl-T` — search files under the current directory. Useful inside any command: type `vim `, hit `Ctrl-T`, pick a file.
-- `Alt-C` — same idea but for `cd`. Picks a subdirectory and changes into it.
+- `⌥C` (Option-C) — same idea but for `cd`. Picks a subdirectory and changes into it. The fzf docs call this binding `Alt-C` — on Mac, `Alt` = `Option`.
 
 ## Troubleshooting
 
@@ -71,6 +71,6 @@ These are global, not tied to any specific command:
 | Gray suggestions don't appear | Plugin not loaded, or terminal theme makes them invisible. Try `export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'` in `~/.zshrc`. |
 | `→` doesn't accept inline suggestion | Some terminals send a different escape for `→`. Use `End` or `Ctrl-E` instead. |
 | `Ctrl-R` doesn't open fzf picker | fzf keybindings not sourced. `~/.zshrc` must include `source /opt/homebrew/opt/fzf/shell/key-bindings.zsh`. Confirm fzf is installed (`brew list fzf`). |
-| `Alt-C` does nothing | macOS terminals often need Option set as `Meta`. In iTerm2: Settings → Profiles → Keys → set **Left Option** as `Esc+`. Apple Terminal: Settings → Profiles → Keyboard → **Use Option as Meta key**. |
+| `⌥C` does nothing | macOS terminals need Option set as `Meta` for `⌥`-bindings to fire. In iTerm2: Settings → Profiles → Keys → set **Left Option key** as `Esc+`. Apple Terminal: Settings → Profiles → Keyboard → check **Use Option as Meta key**. |
 | Syntax highlighting colors don't update | zsh-syntax-highlighting isn't last in the `plugins=(...)` array. Move it to the end. |
 | Changes to `~/.zshrc` don't take effect | Reload: `source ~/.zshrc`, or open a new shell. |
