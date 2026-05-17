@@ -27,7 +27,7 @@ iterm2:
 
 skills:
 	@mkdir -p $$HOME/.codex/skills $$HOME/.claude/skills
-	@find skills -type f -path '*/scripts/*' -exec chmod +x {} +
+	@find skills -type f -path '*/scripts/*' -exec sh -c 'head -c2 "$$1" | grep -q "^#!" && chmod +x "$$1"' _ {} \;
 	@for s in skills/*/; do \
 		name=$$(basename $$s); \
 		rsync -a --delete "$$s" "$$HOME/.codex/skills/$$name/"; \
