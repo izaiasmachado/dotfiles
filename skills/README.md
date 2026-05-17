@@ -13,6 +13,7 @@ Skills authored in this repo for our specific workflow.
 | Skill | What it does |
 |---|---|
 | [iterm2-sync](iterm2-sync/SKILL.md) | Walks the agent through capturing iTerm2 UI tweaks (colors, fonts, keymaps, hotkeys, dock behavior) back into the committed plist via `scripts/iterm2-sync.py`. Refuses to run while iTerm2 is alive and filters runtime noise (window positions, telemetry) so commits stay clean. |
+| [glab-inline-mr-comments](glab-inline-mr-comments/SKILL.md) | Posts line-anchored review comments on a GitLab MR through `glab`. Wraps `glab api` to resolve MR diff SHAs and build the `position` metadata GitLab requires for inline comments to attach to a specific line. Creates as `draft_note` then bulk-publishes. |
 
 ### Vendor-supported skills
 
@@ -70,3 +71,23 @@ For a full re-sync of every Superpowers-vendored skill, loop over the list above
 1. `git rm -r skills/<skill-name>/`
 2. Remove its row from the catalogue above.
 3. Next `make skills` won't reinstall it. **However**, runtimes that previously had it installed still have the copy in `~/.codex/skills/` and `~/.claude/skills/` — `make skills` doesn't garbage-collect skills missing from the repo. Remove those manually if desired.
+
+## Future considerations
+
+### Single-source skill metadata (deferred)
+
+Today, two files carry skill metadata for the two runtimes:
+
+- `SKILL.md` frontmatter (`name`, `description`) — read by **both** Claude Code and Codex; this is what drives auto-triggering.
+- `agents/openai.yaml` — read **only by Codex** for cosmetic UI fields (`display_name`, `short_description`, `default_prompt`). Optional; we currently use it on `glab-inline-mr-comments`.
+
+Claude Code has **no equivalent** of `agents/openai.yaml` — its skill listing uses the `name` and `description` from `SKILL.md` directly, no separate per-vendor metadata file.
+
+A future refactor could introduce a single `skill.yaml` per skill (slug, display name, descriptions, default prompt) and a build script that emits both `SKILL.md` frontmatter and `agents/openai.yaml`. **We deliberately didn't build this yet** because:
+
+1. **Volume is too small to justify it.** With ~2 own skills, the duplication is ~4 lines per skill. The build step would cost more than it saves.
+2. **Vendored skills don't fit the model.** Skills from Superpowers and other upstream sources arrive with their own hand-authored `SKILL.md`. Forcing them through a generator means either rewriting upstream content (loses `rsync -a --delete` syncs) or making the generator skip vendored skills (loses the consistency that motivated it).
+3. **Generated files in git are a footgun.** Someone edits the generated `SKILL.md`, the next build wipes it, surprise.
+4. **No third runtime yet.** If Cursor, Gemini, or Continue land with their own per-skill metadata formats, the generator pays for itself. With just Claude + Codex, it doesn't.
+
+**Revisit when:** 5+ own skills exist, OR a third runtime with its own metadata format is in the picture.
