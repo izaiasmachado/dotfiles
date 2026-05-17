@@ -1,4 +1,4 @@
 interface:
-  display_name: "GLab Inline MR Comments"
+  display_name: "GitLab Inline MR Comments (GLab)"
   short_description: "Post GitLab inline MR comments via glab."
   default_prompt: "Use this skill to create or troubleshoot line-specific GitLab merge request comments with glab, including diff position metadata and draft note publishing."
