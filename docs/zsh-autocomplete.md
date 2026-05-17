@@ -2,6 +2,20 @@
 
 This dotfiles' [`.zshrc`](../zsh/.zshrc) loads four plugins that together make the shell much more helpful. This is a quick reference for what each does and how to drive it.
 
+## macOS setup (required for `⌥` bindings)
+
+By default, macOS terminals treat the Option key as the system "special characters" key — pressing `⌥F` types `ƒ`, `⌥C` types `ç`, and the shell never sees the binding. On PT-BR / international keyboards this is especially visible because Option is wired up to lots of accents.
+
+**If you ran `make iterm2`, this is already configured for you** — the committed iTerm2 plist sets Left Option to `Esc+` on the Default profile. After running the make target, quit iTerm2 fully (`Cmd+Q`) and relaunch to pick it up.
+
+For other terminals:
+
+- **Apple Terminal:** Settings → Profiles → Keyboard → check **Use Option as Meta key**
+- **Ghostty / Alacritty / WezTerm:** default to Option-as-Meta — nothing to configure
+- **iTerm2 without these dotfiles:** Settings → Profiles → **Keys** (tab) → **Left Option key → `Esc+`**
+
+**Universal fallback (no config needed):** press `Esc`, release, then press the letter. `Esc` then `C` is equivalent to `⌥C`. `Esc` then `F` is equivalent to `⌥F`. Works on any terminal, any layout.
+
 ## The stack
 
 | Plugin | Purpose |
@@ -71,6 +85,6 @@ These are global, not tied to any specific command:
 | Gray suggestions don't appear | Plugin not loaded, or terminal theme makes them invisible. Try `export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'` in `~/.zshrc`. |
 | `→` doesn't accept inline suggestion | Some terminals send a different escape for `→`. Use `End` or `Ctrl-E` instead. |
 | `Ctrl-R` doesn't open fzf picker | fzf keybindings not sourced. `~/.zshrc` must include `source /opt/homebrew/opt/fzf/shell/key-bindings.zsh`. Confirm fzf is installed (`brew list fzf`). |
-| `⌥C` does nothing | macOS terminals need Option set as `Meta` for `⌥`-bindings to fire. In iTerm2: Settings → Profiles → Keys → set **Left Option key** as `Esc+`. Apple Terminal: Settings → Profiles → Keyboard → check **Use Option as Meta key**. |
+| `⌥C` types `ç` (or any `⌥`-binding types an accent) | Option not set as Meta — see [macOS setup](#macos-setup-required-for--bindings) above. If you ran `make iterm2`, quit iTerm2 fully and relaunch. |
 | Syntax highlighting colors don't update | zsh-syntax-highlighting isn't last in the `plugins=(...)` array. Move it to the end. |
 | Changes to `~/.zshrc` don't take effect | Reload: `source ~/.zshrc`, or open a new shell. |
