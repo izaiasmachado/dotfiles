@@ -90,3 +90,22 @@ Switch to **Portuguese** only when the project's existing history is already in 
 - Title follows the same Conventional Commits format as the squashed commit.
 - Description focuses on *why* and *what changed*, in the language used by the rest of the project.
 - No AI footer, no co-author trailer.
+- **Include a Mermaid diagram** in the PR description whenever the change introduces non-trivial control flow, state transitions, or interaction between multiple components. Use a fenced ```` ```mermaid ```` block and pick the diagram type that fits the behaviour:
+  - `flowchart` — branching logic, request paths, decision trees.
+  - `sequenceDiagram` — cross-component calls, async flows, API exchanges.
+  - `stateDiagram-v2` — state machines, lifecycle changes.
+  - `erDiagram` — new tables, schema changes, foreign-key relationships.
+  - `classDiagram` — non-trivial class/type hierarchies.
+
+  Skip the diagram for trivial changes (renames, single-line fixes, doc tweaks, dependency bumps). Example for a request path:
+
+  ````markdown
+  ```mermaid
+  flowchart LR
+      Client --> API[/POST /orders/]
+      API --> Validate{valid?}
+      Validate -- no --> Reject[400]
+      Validate -- yes --> DB[(orders)]
+      DB --> Queue[[publish order.created]]
+  ```
+  ````
