@@ -40,5 +40,5 @@ agents:
 	ln -sfn "$(PWD)/AGENTS.md" "$$HOME/.claude/CLAUDE.md"
 
 claude:
-	@mkdir -p $$HOME/.claude
-	ln -sfn $(PWD)/claude/settings.json $$HOME/.claude/settings.json
+	@mkdir -p "$$HOME/.claude"
+	ln -sfn "$(PWD)/claude/settings.json" "$$HOME/.claude/settings.json"
