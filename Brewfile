@@ -35,7 +35,7 @@ cask "pearcleaner"           # uninstaller — removes app leftovers
 cask "microsoft-remote-desktop"
 cask "parsec"
 cask "anydesk"
-cask "tailscale"
+cask "tailscale-app"
 
 # === Terminal ===
 cask "iterm2"
