@@ -1,6 +1,13 @@
 # AGENTS.md
 
-Guidance for AI coding agents (Codex, Claude Code, Copilot) working in this repo.
+Default guidance for AI coding agents (Codex, Claude Code, Copilot) working on Izaias's repositories.
+
+This file lives in the [dotfiles](https://github.com/izaiasmachado/dotfiles) repo and is installed as the global agent config via `make agents`:
+
+- `~/.codex/AGENTS.md` → this file (read by Codex CLI on every session)
+- `~/.claude/CLAUDE.md` → this file (read by Claude Code on every session)
+
+The rules below apply to **every repo** Codex/Claude touch. A repo can override or extend them with its own `AGENTS.md` / `CLAUDE.md`.
 
 ## Git identity
 
@@ -33,9 +40,9 @@ Format: `type(scope): short summary in the imperative`
 
 **Allowed types:** `feat`, `fix`, `chore`, `docs`, `refactor` (also `test`, `perf`, `style`, `build`, `ci` if relevant).
 
-**Scope** is the touched area: `brew`, `zsh`, `macos`, `iterm2`, `skills`, `claude`, `git`, etc. Drop the scope only when the change spans the whole repo.
+**Scope** is the touched area of the codebase — use whatever module names are conventional in the current repo. From this dotfiles repo's history: `brew`, `zsh`, `macos`, `iterm2`, `skills`, `claude`, `git`. Drop the scope only when the change spans the whole repo.
 
-**Examples from this repo:**
+**Examples (from the dotfiles repo):**
 
 ```
 feat(brew): add tmux and pearcleaner
