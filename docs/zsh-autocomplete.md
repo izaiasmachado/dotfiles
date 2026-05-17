@@ -22,7 +22,7 @@ This dotfiles' [`.zshrc`](../zsh/.zshrc) loads four plugins that together make t
 | `Esc` | Cancel the picker |
 | `→` or `End` | Accept the whole gray inline suggestion |
 | `Ctrl-E` | Same — accept inline suggestion to end of line |
-| `Ctrl-→` | Accept inline suggestion one word at a time |
+| `⌥F` (Option-F) | Accept inline suggestion one word at a time |
 | `Ctrl-R` | Fuzzy-search shell history |
 | `Ctrl-T` | Fuzzy-search files under the current directory |
 | `⌥C` (Option-C) | Fuzzy-pick a subdirectory and `cd` into it |
@@ -44,7 +44,7 @@ Instead of cycling through 50 options, type a few letters and pick.
 As you type, a faint gray suggestion appears showing a past command that starts the same way:
 
 - `→` or `End` — accept the whole suggestion.
-- `Ctrl-→` — accept just the next word.
+- `⌥F` (Option-F) — accept just the next word. Note: `Ctrl-→` does **not** work on macOS — the system grabs it for "move to next Space" (Mission Control).
 - Keep typing to ignore it (it updates as you type).
 
 This is **different from Tab completion**. Autosuggestions come from your history. Tab completion comes from what zsh knows about commands and files.
